@@ -1,0 +1,98 @@
+@charset "UTF-8";
+/*common style  */
+body{
+	vertical-align:top;
+	margin:0;
+	padding:0;
+	color:rgba(0,0,0,0.8);
+}
+
+.wrapper{
+	width:80%;
+	min-width:400px;
+	margin:0 auto;
+}
+.contents .wrapper{
+	text-align: center;
+}
+
+input[type="button"]{
+	background: #bf0000;
+	color:rgba(255,255,255,0.9);
+	border: none;
+	border-radius: 5px;
+	font-size:1em;
+	transition:0.3s;
+	width:150px;
+	height:40px;
+	cursor:pointer;
+}
+
+input[type="button"]:hover{
+	background: rgba(255,255,255,0.9);
+	color:#bf0000;
+	border: solid 1px #bf0000 ;
+	border-radius: 5px;
+	font-weight: bold;
+}
+
+
+.hidden{
+	display:none;
+}
+
+.red-white{
+	background: #bf0000;
+	color:rgba(255,255,255,0.9);
+}
+.white-red{
+	background:rgba(255,255,255,0.9) ;
+	color:#bf0000;
+}
+/*header part  */
+header{
+	font-size: 2em;
+	font-weight:bold;
+}
+/*upload part  */
+form{
+	width: 60%;
+    display: inline-block;
+}
+
+.nameCard{
+	width:200px;
+	height:30px;
+	position:absolute;
+	font-weight: bold;
+	left:-10px;
+	top:-10px;
+	font-size:18px;
+	border-radius:10px;
+}
+.file_upload{
+	position:relative;
+	text-align: center;
+	font-size:15px;
+	margin-top:20px;
+	height:300px;
+	border:2px solid rgba(0,0,0,0.2);
+	border-radius:10px;
+}
+input[type="file"]{
+	width:50%;
+	margin-top:70px;
+	border:1px solid rgba(0,0,0,0.3);
+	border-radius: 5px;
+}
+.uploadBtn{
+	margin-top:20px;
+}
+.explain{
+	position:relative;
+	margin-top:30px;
+}
+.error{
+	margin-top:20px;
+	color:#bf0000;
+}
