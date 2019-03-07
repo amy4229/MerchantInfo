@@ -30,7 +30,6 @@ public class HomeController {
 			
 		}catch (Exception e) {
 			result.put("error", e.getMessage());
-			// TODO: handle exception
 		} 
 		return result;
 	}
