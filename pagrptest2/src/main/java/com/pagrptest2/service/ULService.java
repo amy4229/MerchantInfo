@@ -9,7 +9,6 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.opencsv.CSVReader;
@@ -21,7 +20,6 @@ public class ULService {
 	/*@Autowired
 	private MerchantDao merchantDao;*/
 	
-	@Transactional
 	public List<MerchantDomain> uploadCSV(MultipartFile file) throws Exception {
 		CSVReader csvReader=null;
 		List<MerchantDomain> merchantList = new ArrayList<>();

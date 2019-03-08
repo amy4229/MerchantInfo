@@ -2,16 +2,11 @@ package com.pagrptest2.domain;
 
 import java.io.Serializable;
 
-
-import org.springframework.data.mongodb.core.mapping.Document;
-
-
 /**
  * store DTO
  * @author Hwasun Kim
  *
  */
-@Document(collection="shop")
 public class MerchantDomain implements Serializable{
 	
 	private static final long serialVersionUID=1L;
