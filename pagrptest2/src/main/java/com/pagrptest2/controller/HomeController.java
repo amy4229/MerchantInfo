@@ -15,11 +15,25 @@ import org.springframework.web.multipart.MultipartFile;
 import com.pagrptest2.domain.MerchantDomain;
 import com.pagrptest2.service.ULService;
 
+/**
+ * Controller
+ * @author Amy
+ *
+ */
 @Controller
 public class HomeController {
+	/**
+	 * ulService
+	 */
 	@Autowired
 	ULService ulService;
 	
+	/**
+	 * Controller for upload
+	 * @param file
+	 * @param model
+	 * @return result
+	 */
 	@RequestMapping(value = "/uploadCSV", method = RequestMethod.POST)
 	public @ResponseBody Map <String, Object> uploadCSV(MultipartFile file,Model model) {
 		Map <String, Object> result= new HashMap<>();
@@ -34,6 +48,10 @@ public class HomeController {
 		return result;
 	}
 	
+	/**
+	 * Controller for main
+	 * @param model
+	 */
 	@RequestMapping("/index")
 	public void index(Model model) {
 		String msg = "";

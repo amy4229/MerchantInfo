@@ -14,16 +14,33 @@ import org.springframework.web.multipart.MultipartFile;
 import com.opencsv.CSVReader;
 import com.pagrptest2.domain.MerchantDomain;
 
+/**
+ * Merchant info UL Service class
+ * @author Amy
+ *
+ */
+/**
+ * @author Amy
+ *
+ */
 @Service
 public class ULService {
 
 	/*@Autowired
 	private MerchantDao merchantDao;*/
 	
+	
+	/**
+	 * upload file
+	 * @param file
+	 * @return merchant info
+	 * @throws Exception
+	 */
 	public List<MerchantDomain> uploadCSV(MultipartFile file) throws Exception {
 		CSVReader csvReader=null;
 		List<MerchantDomain> merchantList = new ArrayList<>();
 		try {
+			//validate1 format check
 			if(!file.getContentType().equals("application/x-msexcel")){
 				throw new Exception("Please chech your file format");
 			}
@@ -35,6 +52,7 @@ public class ULService {
 				MerchantDomain merchant = new MerchantDomain();
 				String shop = line[0];
 				String endDate = line[2];
+				//validate2 EndDate check
 				if(!checkEndDate(endDate)) {
 					throw new Exception("End date must be in future only.");
 				}
@@ -59,7 +77,12 @@ public class ULService {
 	}
 
 	
-	public boolean checkEndDate(String endDate) {
+	/**
+	 * method for checking endDate
+	 * @param endDate
+	 * @return result
+	 */
+	private boolean checkEndDate(String endDate) {
 		boolean result=true;
 		
 		//current time
