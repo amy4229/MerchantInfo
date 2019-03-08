@@ -9,7 +9,7 @@ body{
 
 .wrapper{
 	width:80%;
-	min-width:400px;
+	min-width:500px;
 	margin:0 auto;
 }
 .contents .wrapper{
@@ -23,8 +23,6 @@ input[type="button"]{
 	border-radius: 5px;
 	font-size:1em;
 	transition:0.3s;
-	width:150px;
-	height:40px;
 	cursor:pointer;
 }
 
@@ -39,6 +37,7 @@ input[type="button"]:hover{
 
 .hidden{
 	display:none;
+	height:0;
 }
 
 .red-white{
@@ -53,6 +52,7 @@ input[type="button"]:hover{
 header{
 	font-size: 2em;
 	font-weight:bold;
+	position: relative;
 }
 /*upload part  */
 form{
@@ -75,24 +75,95 @@ form{
 	text-align: center;
 	font-size:15px;
 	margin-top:20px;
-	height:300px;
+	height:200px;
 	border:2px solid rgba(0,0,0,0.2);
 	border-radius:10px;
 }
 input[type="file"]{
 	width:50%;
-	margin-top:70px;
+	margin-top:30px;
 	border:1px solid rgba(0,0,0,0.3);
 	border-radius: 5px;
 }
 .uploadBtn{
 	margin-top:20px;
+	width:150px;
+	height:40px;
 }
 .explain{
 	position:relative;
 	margin-top:30px;
 }
 .error{
-	margin-top:20px;
+	margin-top:8px;
 	color:#bf0000;
 }
+.smallize{
+	margin-top:10%;
+}
+
+/*showInfo part  */
+.showInfo{
+	height:400px;
+}
+.resultNo{
+	float:left;
+	font-size: 13px;
+	line-height:3.0;
+}
+.search-bar{
+	margin-top:10px;
+	text-align: right;
+	margin-right:30px;
+}
+.searchBtn{
+	width:100px;
+	height:30px;
+}
+.result{
+	width:100%;
+	min-width:600px;
+	margin-top:10px;
+	height:350px;
+}
+.table_body{
+	height:300px;
+	overflow: auto;
+}
+.tr{
+	position:relative;
+	min-width:600px;
+	height:36px;
+}
+.tr{
+	height:30px;
+}
+.th,.td{
+	float:left;
+	border-collapse: collapse;
+	text-align:left;
+	padding:2px;
+	padding-left:10px;
+}
+.th{
+	background:#bf0000;
+	border:#bf0000 1px solid;
+	color:rgba(255,255,255,0.9);
+	font-weight: bold;
+}
+.td{
+	background:white;
+	border:#bf0000 1px solid;
+	color:rgba(0,0,0,0.7);
+	font-size:14px;
+}
+.shop{
+	width:47%;
+}
+.start_date{
+	width:21%;
+}
+.end_date{
+	width:21%;
+}
+

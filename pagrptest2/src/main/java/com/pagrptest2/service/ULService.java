@@ -24,6 +24,9 @@ public class ULService {
 		CSVReader csvReader=null;
 		List<MerchantDomain> merchantList = new ArrayList<>();
 		try {
+			if(!file.getContentType().equals("application/x-msexcel")){
+				throw new Exception("Please chech your file format");
+			}
 			csvReader = new CSVReader(new InputStreamReader(file.getInputStream()));
 			String[] line = csvReader.readNext();
 			HashSet<String> shopName = new HashSet<>();

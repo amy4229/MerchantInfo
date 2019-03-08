@@ -11,6 +11,7 @@
 	<header class="white-red">
 		<div class="wrapper">Shop Infomation Upload</div>
 	</header>
+	
 	<div class="contents">
 		<div class="wrapper">
 			<form class="form" >
@@ -21,26 +22,26 @@
 						<input type="file" class="file" name="file"/>
 					</div>
 					<div>
-						<input type="button" class="uploadBtn" value="upload"/>
+						<input type="button" class="uploadBtn" value="Upload"/>
 					</div>
 					<div class="error"></div>
 				</div>
 			</form>
 			<div class="showInfo hidden">
+				<div class="resultNo"></div>
 				<div class="search-bar">
-					<input type="date" value="activeDate"/>
-					<input type="button" class="SearchBtn" value="Search"/>
+					<input type="date"  class="activeDate" pattern="YYYYMMdd" value="YYYYMM"/>
+					<input type="button" class="searchBtn" value="Search"/>
 				</div>
 				<div class="result">
 					<div class="table_header">
-						<div class="th store"></div>
-						<div class="th start_date"></div>
-						<div class="th end_date"></div>
+						<div class="tr">
+							<div class="th shop">Shop</div>
+							<div class="th start_date">Start Date</div>
+							<div class="th end_date">End Date</div>
+						</div>
 					</div>
 					<div class="table_body">
-						<div class="td store"></div>
-						<div class="td start_date" ></div>
-						<div class="td end_date" ></div>
 					</div>
 				</div>
 			</div>
