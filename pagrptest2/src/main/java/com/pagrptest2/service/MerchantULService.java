@@ -1,5 +1,7 @@
 package com.pagrptest2.service;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
@@ -8,35 +10,60 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.opencsv.CSVReader;
 import com.pagrptest2.domain.MerchantDomain;
 
+/**
+ * Merchant info UL Service class
+ * @author Amy
+ *
+ */
+/**
+ * @author Amy
+ *
+ */
 @Service
-public class ULService {
+public class MerchantULService {
 
-	/*@Autowired
-	private MerchantDao merchantDao;*/
+	private static final String savePath="C:\\kimULsys\\";
 	
+	/**
+	 * upload file
+	 * @param file
+	 * @return merchant info
+	 * @throws Exception
+	 */
 	public List<MerchantDomain> uploadCSV(MultipartFile file) throws Exception {
+		//save path
 		CSVReader csvReader=null;
 		List<MerchantDomain> merchantList = new ArrayList<>();
+		FileOutputStream fos=null;
 		try {
-			if(!file.getContentType().equals("application/x-msexcel")){
-				throw new Exception("Please chech your file format");
-			}
 			csvReader = new CSVReader(new InputStreamReader(file.getInputStream()));
 			String[] line = csvReader.readNext();
+			//file header check
+			if(line.length<3 || !line[0].equals("shop")||!line[1].equals("start_date")||!line[2].equals("end_date")) {
+				throw new Exception("please check your file");
+			}
+			
 			HashSet<String> shopName = new HashSet<>();
 			while ((line  = csvReader.readNext()) != null) {
 				//parse file and split
 				MerchantDomain merchant = new MerchantDomain();
 				String shop = line[0];
+				String startDate = line[1];
 				String endDate = line[2];
+				//validate2 EndDate check
 				if(!checkEndDate(endDate)) {
 					throw new Exception("End date must be in future only.");
+				}
+				//validate date format check
+				if(!validateDate(endDate)||!validateDate(startDate)) {
+					throw new Exception("please check your date format(YYYYMMdd) ");
 				}
 				shopName.add(shop);
 				merchant.setShop(shop);
@@ -49,9 +76,17 @@ public class ULService {
 			if(shopName.size() < merchantList.size()) {
 				throw new Exception("No duplicate shops allowed in the file.");
 			}
-			
+			//file upload
+			File saveDir = new File(savePath);
+			File uploadFile= new File(savePath,System.currentTimeMillis()+file.getOriginalFilename());
+			if(!saveDir.exists()) {
+				saveDir.mkdirs();
+			}
+			fos= new FileOutputStream(uploadFile);
+    		IOUtils.copy(file.getInputStream(),fos);
+    		
 		} catch (IOException e) {
-			throw new Exception("Fail to read. please try again");
+			throw new Exception("Fail to upload. please try again");
 		} finally {
 				csvReader.close();
 		}
@@ -59,7 +94,12 @@ public class ULService {
 	}
 
 	
-	public boolean checkEndDate(String endDate) {
+	/**
+	 * method for checking endDate
+	 * @param endDate
+	 * @return result
+	 */
+	private boolean checkEndDate(String endDate) {
 		boolean result=true;
 		
 		//current time
@@ -72,4 +112,15 @@ public class ULService {
 		return result;
 	}
 	
+	
+	private boolean validateDate(String date) {
+		SimpleDateFormat dateFormatParser = new SimpleDateFormat("YYYYMMdd");
+        dateFormatParser.setLenient(false);
+        try {
+            dateFormatParser.parse(date);
+            return true;
+        } catch (Exception Ex) {
+            return false;
+        }
+	}
 }
