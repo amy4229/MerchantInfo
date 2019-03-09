@@ -5,6 +5,7 @@ body{
 	margin:0;
 	padding:0;
 	color:rgba(0,0,0,0.8);
+	font-family: sans-serif;
 }
 
 .wrapper{
@@ -159,7 +160,14 @@ input[type="file"]{
 }
 .shop{
 	width:47%;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	word-wrap:normal;
+	overflow:hidden;
+	cursor:default;
 }
+
+
 .start_date{
 	width:21%;
 }
