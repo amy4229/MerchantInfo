@@ -11,6 +11,8 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,6 +32,7 @@ import com.pagrptest2.domain.MerchantDomain;
 public class MerchantULService {
 
 	private static final String savePath="C:\\kimULsys\\";
+	private static final Logger LOGGER = LogManager.getLogger(MerchantULService.class);
 	
 	/**
 	 * upload file
@@ -45,8 +48,10 @@ public class MerchantULService {
 		try {
 			csvReader = new CSVReader(new InputStreamReader(file.getInputStream()));
 			String[] line = csvReader.readNext();
+			int count=1;
 			//file header check
 			if(line.length<3 || !line[0].equals("shop")||!line[1].equals("start_date")||!line[2].equals("end_date")) {
+				LOGGER.error("Header Check : " + line);
 				throw new Exception("please check your file");
 			}
 			
@@ -59,10 +64,12 @@ public class MerchantULService {
 				String endDate = line[2];
 				//validate2 EndDate check
 				if(!checkEndDate(endDate)) {
+					LOGGER.error("EndDate check : " + endDate);
 					throw new Exception("End date must be in future only.");
 				}
 				//validate date format check
 				if(!validateDate(endDate)||!validateDate(startDate)) {
+					LOGGER.error("date format check : startdate [ "+startDate+" ]  end_date:[ " + endDate+" ]");
 					throw new Exception("please check your date format(YYYYMMdd) ");
 				}
 				shopName.add(shop);
@@ -70,10 +77,12 @@ public class MerchantULService {
 				merchant.setStartDate(line[1]);
 				merchant.setEndDate(endDate);
 				merchantList.add(merchant);
+				LOGGER.debug(count+" : "+merchant.toString());
 			}
 			
 			//duplicate file check
 			if(shopName.size() < merchantList.size()) {
+				LOGGER.error("duplicate file check");
 				throw new Exception("No duplicate shops allowed in the file.");
 			}
 			//file upload
@@ -86,6 +95,7 @@ public class MerchantULService {
     		IOUtils.copy(file.getInputStream(),fos);
     		
 		} catch (IOException e) {
+			LOGGER.error("IOException :" + e.getMessage() +"  caused by" + e.getCause());
 			throw new Exception("Fail to upload. please try again");
 		} finally {
 				csvReader.close();
