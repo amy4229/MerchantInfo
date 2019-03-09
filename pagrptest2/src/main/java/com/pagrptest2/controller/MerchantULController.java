@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pagrptest2.domain.MerchantDomain;
-import com.pagrptest2.service.ULService;
+import com.pagrptest2.service.MerchantULService;
 
 /**
  * Controller
@@ -21,12 +21,12 @@ import com.pagrptest2.service.ULService;
  *
  */
 @Controller
-public class HomeController {
+public class MerchantULController {
 	/**
 	 * ulService
 	 */
 	@Autowired
-	ULService ulService;
+	MerchantULService merchantULService;
 	
 	/**
 	 * Controller for upload
@@ -38,7 +38,7 @@ public class HomeController {
 	public @ResponseBody Map <String, Object> uploadCSV(MultipartFile file,Model model) {
 		Map <String, Object> result= new HashMap<>();
 		try {
-			List<MerchantDomain> merchantList = ulService.uploadCSV(file);
+			List<MerchantDomain> merchantList = merchantULService.uploadCSV(file);
 			result.put("result", merchantList);
 			model.addAttribute("result", merchantList);
 			

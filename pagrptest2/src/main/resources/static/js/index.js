@@ -44,8 +44,11 @@ function locateCenter(item){
 	var itemHeight=item.height();
 	var showInfoHeight = $(".showInfo").css("display")=="none"?0:$(".showInfo").height();
 	var screenHeight=$(document).height();
+	var headerHeight=$("header").height();
 	if(screenHeight>400){
-		item.css("margin-top",(screenHeight-itemHeight-showInfoHeight-100)/2-40);
+		item.css("margin-top",(screenHeight-itemHeight-showInfoHeight-headerHeight)/2);
+	}else{
+		item.css("margin-top",(screenHeight-itemHeight-showInfoHeight-headerHeight)/2+headerHeight);
 	}
 }
 
@@ -61,8 +64,11 @@ function uploadCSV(){
 	
 	//check for file format
 	var fileCheck=false;
-	if($(".file")[0].files[0].type=="application/x-msexcel"){
-		fileCheck=true;
+	var file = $(".file")[0].files[0];
+	if(file!=undefined){
+		if(file.type=="application/vnd.ms-excel"){
+			fileCheck=true;
+		}
 	}
 	
 	//upload 
@@ -87,7 +93,7 @@ function uploadCSV(){
 			}
 		});
 	}else{
-		showErrMsg("Please, check your file type(only CSV)");
+		showErrMsg("Please, check your file(only CSV)");
 	}
 }
 
