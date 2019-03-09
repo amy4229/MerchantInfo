@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +30,8 @@ public class MerchantULController {
 	@Autowired
 	MerchantULService merchantULService;
 	
+	private static final Logger LOGGER = LogManager.getLogger(MerchantULController.class);
+	
 	/**
 	 * Controller for upload
 	 * @param file
@@ -38,13 +42,17 @@ public class MerchantULController {
 	public @ResponseBody Map <String, Object> uploadCSV(MultipartFile file,Model model) {
 		Map <String, Object> result= new HashMap<>();
 		try {
+			LOGGER.debug("Controller process Start");
+			LOGGER.debug("File Name" +file.getName()+ "File size :" + file.getSize()+ "File type"+ file.getContentType());
 			List<MerchantDomain> merchantList = merchantULService.uploadCSV(file);
 			result.put("result", merchantList);
 			model.addAttribute("result", merchantList);
 			
 		}catch (Exception e) {
 			result.put("error", e.getMessage());
+			LOGGER.error(e.getMessage()+e.getCause());
 		} 
+		LOGGER.debug("Controller process Complete");
 		return result;
 	}
 	
