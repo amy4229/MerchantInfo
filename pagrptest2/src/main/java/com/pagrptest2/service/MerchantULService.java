@@ -31,7 +31,7 @@ import com.pagrptest2.domain.MerchantDomain;
 @Service
 public class MerchantULService {
 
-	private static final String savePath="C:\\kimULsys\\";
+	private static final String SAVE_PATH="C:\\kimULsys\\";
 	private static final Logger LOGGER = LogManager.getLogger(MerchantULService.class);
 	
 	/**
@@ -86,8 +86,8 @@ public class MerchantULService {
 				throw new Exception("No duplicate shops allowed in the file.");
 			}
 			//file upload
-			File saveDir = new File(savePath);
-			File uploadFile= new File(savePath,System.currentTimeMillis()+file.getOriginalFilename());
+			File saveDir = new File(SAVE_PATH);
+			File uploadFile= new File(SAVE_PATH,System.currentTimeMillis()+file.getOriginalFilename());
 			if(!saveDir.exists()) {
 				saveDir.mkdirs();
 			}
